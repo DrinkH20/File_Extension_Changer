@@ -17,7 +17,7 @@ class MyGrid(GridLayout):
 
         self.add_widget(self.inside)
 
-        self.inside.add_widget(Label(text="File or Folder fi/fo: "))
+        self.inside.add_widget(Label(text="File or Folder file/folder: "))
         self.fileorfolder = TextInput(multiline=False)
         self.inside.add_widget(self.fileorfolder)
 
@@ -38,7 +38,7 @@ class MyGrid(GridLayout):
         path_folder = fr'{self.file_source.text}'
         new_ex = '.' + self.type.text
         fileorfolder = self.fileorfolder.text
-        if fileorfolder == "fo":
+        if fileorfolder == "folder":
             with os.scandir(path_folder) as files_and_folder:
                 for element in files_and_folder:
                     if element.is_file():
@@ -49,13 +49,15 @@ class MyGrid(GridLayout):
                             os.rename(element.path, new_path)
                             file_counter += 1
                             print('Folder from {} to {}'.format(old_ex, new_ex, new_path))
-        elif fileorfolder == "fi":
+        elif fileorfolder == "file":
             root, ext = os.path.splitext(path_folder)
             if ext != ".py":
                 old_ex = ext
                 new_path = root + new_ex
                 os.rename(path_folder, new_path)
                 print('File from {} to {}'.format(old_ex, new_ex, new_path))
+        else:
+            print("Sorry, that is not a valid answer!")
 
 
 class MyApp(App):
