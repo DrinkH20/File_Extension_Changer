@@ -7,8 +7,9 @@ import os
 from to_docs import convert_docs
 from doc_to_pdf import convert_pdf
 import shutil
-import libreoffice_convert
+import time
 
+time_start = time.time()
 
 
 class MyGrid(GridLayout):
@@ -79,22 +80,23 @@ class MyGrid(GridLayout):
 
         elif file_or_folder == "file":
             root, ext = os.path.splitext(path_folder)
-            if new_ex.lower != ".doc" and new_ex.lower() != ".pdf":
+            print(new_ex)
+            if new_ex != ".doc" and new_ex.lower() != ".pdf" and new_ex != ".docx":
                 if ext != ".py":
                     old_ex = ext
                     new_path = root + new_ex
                     copy_file = r"C:\Users\jones\OneDrive\Pictures\pngs_or_something\Copied files"
-                    print(copy_file)
+                    print(copy_file, "not doc")
                     shutil.copy2(path_folder, copy_file)
                     os.rename(path_folder, new_path)
                     print('File from {} to {}'.format(old_ex, new_ex, new_path))
-            elif new_ex.lower() == ".doc":
+            elif new_ex == ".doc" or new_ex == ".docx":
                 old_ex = ext
                 new_path = root + new_ex
-                os.rename(path_folder, new_path)
-                print('File from {} to {}'.format(old_ex, new_ex, new_path))
                 print("This is the test")
                 convert_docs(path_folder, new_ex)
+                print('File from {} to {}'.format(old_ex, new_ex, new_path))
+                print("converted!")
             elif new_ex.lower() == ".pdf":
                 convert_pdf(path_folder, new_ex)
                 copy_file = r"C:\Users\jones\OneDrive\Pictures\pngs_or_something\Copied files"
@@ -103,6 +105,10 @@ class MyGrid(GridLayout):
                 print("FILE COPIED!")
         else:
             print("Sorry, that is not a valid answer!")
+
+        time_end = time.time()
+
+        print(f'Time used for conversion {time_end - time_start}')
 
 
 class MyApp(App):

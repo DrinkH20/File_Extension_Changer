@@ -5,7 +5,7 @@ import os
 def convert_docs(path, ex):
     # INPUT/OUTPUT PATH
     pdf_path = fr"""{path}"""
-    output_path = fr"""{path}"""
+    # output_path = fr"""{path}"""
 
     word = win32com.client.Dispatch("Word.Application")
     word.visible = 1
